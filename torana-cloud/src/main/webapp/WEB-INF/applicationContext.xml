@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       	http://www.springframework.org/schema/beans 
+       	http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<!-- 	<bean id="applicationContextProvider" class="com.torana.webservices.ApplicationContextProvider"></bean> -->
+	<bean id="applicationContextProvider" class="com.torana.util.ApplicationContextProvider"></bean>
+	
+	<!-- <context:component-scan base-package="com.torana.beans"></context:component-scan>
+	
+	<bean id="graphDatabaseService" class="org.springframework.data.neo4j.rest.SpringRestGraphDatabase">
+		<constructor-arg value="http://localhost:7474/db/data/" />
+	</bean>
+	
+	<neo4j:config graphDatabaseService="graphDatabaseService" base-package="org.springframework.data.neo4j.rest.SpringRestGraphDatabase"/>
+	
+	<neo4j:repositories base-package="com.torana.dao" /> -->
+	
+	
+	<bean id="hibernateSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+		<property name="mappingResources">
+			<list>
+				<value>hibernate-mappings/Users.hbm.xml</value>
+				<value>hibernate-mappings/CloudElements.hbm.xml</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.connection.useUnicode">true</prop>
+				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+				</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.transaction.flush_before_completion">true</prop>
+				<prop key="hibernate.transaction.flush_before_completion">true</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</prop>
+				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/torana</prop>
+				<prop key="hibernate.connection.username">root</prop>
+				<prop key="hibernate.connection.password">pass</prop>
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext
+				</prop>
+				<!--<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.spi.TransactionFactory</prop> 
+					Uncomment the below line to print the generated SQL queries -->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>
+
+				<!-- enabling statistics -->
+				<prop key="hibernate.generate_statistics">true</prop>
+				
+				 <prop key="javax.persistence.validation.mode">none</prop>
+				
+			</props>
+		</property>
+	</bean>
+
+	<!-- DAOs -->
+		<bean id="genericDAO" class="com.torana.generic.dao.impl.ToranaGenericDAOImpl">
+		<property name="sessionFactory" ref="hibernateSessionFactory"></property>
+	</bean>
+	<bean id="cloudDAO" class="com.torana.cloud.dao.impl.ToranaCloudDAOImpl">
+		<property name="sessionFactory" ref="hibernateSessionFactory"></property>
+	</bean>
+	<bean id="cloudElementsDAO" class="com.torana.cloud.dao.impl.ToranaCloudElementsDAOImpl">
+		<property name="sessionFactory" ref="hibernateSessionFactory"></property>
+	</bean>
+
+	<!-- DAO Factory -->
+	<bean id="DAOFactory" class="com.torana.hibernate.core.dao.impl.DAOFactoryImpl">
+		<property name="daosMap">
+			<map>
+				<entry key="genericDAO" value-ref="genericDAO" />
+				<entry key="cloudDAO" value-ref="cloudDAO" />
+				<entry key="cloudElementsDAO" value-ref="cloudElementsDAO" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- Services -->
+
+	<bean id="genericService" class="com.torana.generic.biz.impl.ToranaGenericServiceImpl">
+		<property name="daoFactory" ref="DAOFactory"></property>
+	</bean>
+	<bean id="cloudService" class="com.torana.cloud.biz.impl.ToranaCloudServiceImpl">
+		<property name="daoFactory" ref="DAOFactory"></property>
+	</bean>
+	<bean id="cloudElementsService" class="com.torana.cloud.biz.impl.ToranaCloudElementsServiceImpl">
+		<property name="daoFactory" ref="DAOFactory"></property>
+	</bean>
+	<!-- Services Manger -->
+	<bean id="serviceManager" class="com.torana.biz.impl.ServiceManagerImpl">
+		<property name="servicesMap">
+			<map>
+				<entry key="genericService" value-ref="genericService" />
+				<entry key="cloudService" value-ref="cloudService" />
+				<entry key="cloudElementsService" value-ref="cloudElementsService" />
+			</map>
+		</property>
+	</bean>
+	
+	
+	
+	
+</beans>

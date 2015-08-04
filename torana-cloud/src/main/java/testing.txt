@@ -1,0 +1,38 @@
+CREATE (T1:Tenant :VIR {name:'Tenant-1',  description:'Tenant 1 SFO', type:'tenant',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (T2:Tenant :VIR {name:'Tenant-2',  description:'Tenant 2 HYD', type:'tenant',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (OVS1:SWITCH :VIR {name:'OVS-1', type:'vswitch',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (OVS2:SWITCH :VIR {name:'OVS-2', type:'vswitch',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (OVS3:SWITCH :VIR {name:'OVS-3', type:'vswitch',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (OVS4:SWITCH :VIR {name:'OVS-4', type:'vswitch',oper_state:'1',admin_state:'0', image_source:'none'})
+CREATE (SW1:SWITCH :PHY {name:'Switch-1', type:'switch',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (SW2:SWITCH :PHY {name:'Switch-2', type:'switch',oper_state:'1',admin_state:'0', image_source:'none'})
+CREATE (VM1:VM :VIR {name:'VM-1', image:'WindowsXP', IPV4_Address:'192.168.10.20', type:'vm',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (VM2:VM :VIR {name:'VM-2', image:'FEDORA',    IPV4_Address:'192.168.10.21', type:'vm',oper_state:'0',admin_state:'1', image_source:'none'})
+CREATE (VM3:VM :VIR {name:'VM-3', image:'WindowsXP', IPV4_Address:'192.168.20.20', type:'vm',oper_state:'1',admin_state:'1', image_source:'none'})
+CREATE (VM4:VM :VIR {name:'VM-4', image:'FEDORA',    IPV4_Address:'192.168.20.21', type:'vm',oper_state:'0',admin_state:'1', image_source:'none'})
+CREATE (APP1:APP :VIR {name:'MS-xchange', oper_state:'0',admin_state:'1'})
+CREATE (APP2:APP :VIR {name:'APACHE', oper_state:'0',admin_state:'1'})
+CREATE (APP3:APP :VIR {name:'ORACLE', oper_state:'0',admin_state:'1'})
+CREATE (APP4:APP :VIR {name:'POST-GRESS', oper_state:'0',admin_state:'1'})
+
+CREATE 
+(SW1)-[:CONNECTED {admin_state:'1',oper_state:'1'}]->(SW2),
+(OVS1)-[:CONNECTED {admin_state:'1',oper_state:'0'}]->(SW1),
+(OVS2)-[:CONNECTED {admin_state:'1',oper_state:'0'}]->(SW1),
+(OVS3)-[:CONNECTED {admin_state:'1',oper_state:'1'}]->(SW2),
+(OVS4)-[:CONNECTED {admin_state:'1',oper_state:'0'}]->(SW2),
+(VM1)-[:CONNECTED {admin_state:'1',oper_state:'1'}]->(OVS1),
+(VM2)-[:CONNECTED {admin_state:'1',oper_state:'1'}]->(OVS2),
+(VM3)-[:CONNECTED {admin_state:'1',oper_state:'1'}]->(OVS3),
+(VM4)-[:CONNECTED {admin_state:'1',oper_state:'0'}]->(OVS4),
+(APP1)-[:RUNNING {admin_state:'1',oper_state:'1'}]->(VM1),
+(APP2)-[:RUNNING {admin_state:'1',oper_state:'1'}]->(VM2),
+(APP3)-[:RUNNING {admin_state:'1',oper_state:'0'}]->(VM3),
+(APP4)-[:RUNNING {admin_state:'1',oper_state:'1'}]->(VM4),
+
+(OVS1)-[:TUNNEL {admin_state:'1',oper_state:'1'}]->(OVS2),
+(OVS1)-[:TUNNEL {admin_state:'1',oper_state:'0'}]->(OVS3),
+(OVS1)-[:TUNNEL {admin_state:'1',oper_state:'1'}]->(OVS4),
+(OVS2)-[:TUNNEL {admin_state:'1',oper_state:'1'}]->(OVS3),
+(OVS2)-[:TUNNEL {admin_state:'1',oper_state:'1'}]->(OVS4),
+(OVS3)-[:TUNNEL {admin_state:'1',oper_state:'1'}]->(OVS4)

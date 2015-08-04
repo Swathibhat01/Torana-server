@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 23, 2014 12:34:23 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.mybkr.inventory.ws.entities.Inventory" table="inventory" catalog="mybkr">
+        <id name="invId" type="java.lang.Integer">
+            <column name="inv_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="products" class="com.mybkr.product.ws.entities.Products" fetch="select">
+            <column name="prod_id" />
+        </many-to-one>
+        <many-to-one name="fullfilmentCenters" class="com.mybkr.inventory.ws.entities.FullfilmentCenters" fetch="select">
+            <column name="cent_id" />
+        </many-to-one>
+        <property name="userType" type="string">
+            <column name="user_type" length="10" />
+        </property>
+        <property name="qty" type="java.lang.Integer">
+            <column name="qty" />
+        </property>
+        <property name="createdDttm" type="timestamp">
+            <column name="created_dttm" length="19" />
+        </property>
+        <property name="modifiedDttm" type="timestamp">
+            <column name="modified_dttm" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

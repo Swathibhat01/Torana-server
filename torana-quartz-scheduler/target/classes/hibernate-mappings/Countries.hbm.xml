@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 1, 2014 2:28:22 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.mybkr.product.ws.entities.Countries" table="countries" catalog="mybkr">
+        <id name="countryId" type="java.lang.Integer">
+            <column name="countryID" />
+            <generator class="identity" />
+        </id>
+        <property name="country" type="string">
+            <column name="country" length="100" />
+        </property>
+        <property name="countryCode" type="string">
+            <column name="country_code" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

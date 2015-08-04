@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.torana</groupId>
+		<artifactId>torana</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.torana.utils</groupId>
+	<artifactId>torana-utils</artifactId>
+	<dependencies>
+ 		<dependency>
+			<groupId>com.torana.commons</groupId>
+			<artifactId>torana-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- OpenStack Dependencies -->
+		<dependency>
+			<groupId>org.pacesys</groupId>
+			<artifactId>openstack4j-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+            <groupId>org.pacesys.openstack4j.connectors</groupId>
+            <artifactId>openstack4j-httpclient</artifactId>
+            <version>2.0.1</version>
+            <type>jar</type>
+        </dependency>
+        <!-- End of OpenStack Dependencies -->
+        
+        <!-- Neo4j Dependencies -->
+        <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j</artifactId>
+      <version>2.1.7</version>
+      <!-- In this context, keep this artifact as type pom -->
+      <type>pom</type>
+      <exclusions>
+        <exclusion>
+          <artifactId>neo4j-udc</artifactId>
+          <groupId>org.neo4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-shell</artifactId>
+      <version>2.1.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-cypher</artifactId>
+      <version>2.1.7</version>
+<exclusions>
+				<exclusion>
+					<artifactId>scalap</artifactId>
+					<groupId>org.scala-lang</groupId>
+				</exclusion>
+			</exclusions>
+
+    </dependency>
+    
+    
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-kernel</artifactId>
+      <version>2.1.7</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-graphviz</artifactId>
+      <version>2.1.7</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-udc</artifactId>
+      <version>2.1.7</version>
+      <classifier>neo4j</classifier>
+    </dependency>
+        <!-- End of Neo4j Dependencies -->
+	</dependencies>
+</project>
+
+		  

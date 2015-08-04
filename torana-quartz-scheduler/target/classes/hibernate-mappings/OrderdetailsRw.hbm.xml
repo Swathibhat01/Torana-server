@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 12, 2014 4:09:18 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.mybkr.order.ws.entities.OrderdetailsRw" table="orderdetails_rw" catalog="mybkr">
+        <id name="detailsId" type="java.lang.Integer">
+            <column name="details_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ordersRw" class="com.mybkr.order.ws.entities.OrdersRw" fetch="select">
+            <column name="detail_order_id" />
+        </many-to-one>
+        <property name="detailProductId" type="java.lang.Integer">
+            <column name="detail_product_id" />
+        </property>
+        <property name="detailProductName" type="string">
+            <column name="detail_product_name" length="100" />
+        </property>
+        <property name="detailProductDesc" type="string">
+            <column name="detail_product_desc" length="510" />
+        </property>
+        <property name="detailQuantity" type="java.lang.Integer">
+            <column name="detail_quantity" />
+        </property>
+        <property name="detailPrice" type="big_decimal">
+            <column name="detail_price" scale="4" />
+        </property>
+        <property name="detailOption1" type="string">
+            <column name="detail_option1" length="100" />
+        </property>
+        <property name="detailOption2" type="string">
+            <column name="detail_option2" length="100" />
+        </property>
+        <property name="prodCode" type="string">
+            <column name="prod_code" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

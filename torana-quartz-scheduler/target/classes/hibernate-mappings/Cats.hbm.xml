@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 26, 2014 3:16:57 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.mybkr.product.ws.entities.Cats" table="cats" catalog="mybkr">
+        <id name="catid" type="java.lang.Integer">
+            <column name="catid" />
+            <generator class="identity" />
+        </id>
+        <property name="cat" type="string">
+            <column name="cat" length="100" />
+        </property>
+        <set name="shiptypeses" inverse="true">
+            <key>
+                <column name="catid" />
+            </key>
+            <one-to-many class="com.mybkr.user.ws.entities.Shiptypes" />
+        </set>
+    </class>
+</hibernate-mapping>

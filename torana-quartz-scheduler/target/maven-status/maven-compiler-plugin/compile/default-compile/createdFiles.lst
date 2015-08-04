@@ -1,0 +1,7 @@
+com/torana/quartz/jobs/OpenStackCallsJobs.class
+com/torana/quartz/jobs/ToranaCronJobs.class
+com/torana/quartz/jobs/OpenStackJobsMain.class
+com/torana/quartz/jobs/QuartzJobTracker.class
+com/torana/quartz/api/ws/PurchaseOrderAcknowledgment.class
+com/torana/quartz/jobs/ToranaControllerMain.class
+com/torana/quartz/jobs/HibernateUtils.class

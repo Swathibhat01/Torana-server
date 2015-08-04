@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2014 5:09:35 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.mybkr.product.ws.entities.SliderCats" table="slider_cats" catalog="mybkr">
+        <id name="pageId" type="java.lang.Integer">
+            <column name="pageID" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="510" />
+        </property>
+        <property name="sortOrder" type="java.lang.Integer">
+            <column name="sort_order" />
+        </property>
+    </class>
+</hibernate-mapping>

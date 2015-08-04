@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 12, 2014 4:09:18 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.mybkr.user.ws.entities.AuthUsers" table="auth_users"
+		catalog="mybkr">
+		<id name="authUserId" type="java.lang.Integer">
+			<column name="auth_user_id" />
+			<generator class="identity" />
+		</id>
+		<property name="userName" type="string">
+			<column name="user_name" length="55" />
+		</property>
+		<property name="password" type="string">
+			<column name="password" length="55" />
+		</property>
+		<property name="firstName" type="string">
+			<column name="first_name" length="55" />
+		</property>
+		<property name="lastName" type="string">
+			<column name="last_name" length="55" />
+		</property>
+		<property name="middleName" type="string">
+			<column name="middle_name" length="55" />
+		</property>
+		<property name="emailAddress" type="string">
+			<column name="email_address" length="55" />
+		</property>
+		<property name="active" type="java.lang.Byte">
+			<column name="active" />
+		</property>
+		<property name="createdDttm" type="timestamp">
+			<column name="created_dttm" length="19" />
+		</property>
+		<property name="modifiedDttm" type="timestamp">
+			<column name="modified_dttm" length="19" />
+		</property>
+		<property name="lastLoginDate" type="timestamp">
+			<column name="last_login_date" length="19" />
+		</property>
+		<property name="lastLoginFailure" type="timestamp">
+			<column name="last_login_failure" length="19" />
+		</property>
+		<property name="loginFailureAttempts" type="java.lang.Integer">
+			<column name="login_failure_attempts" />
+		</property>
+		<property name="loginDate" type="timestamp">
+			<column name="login_date" length="19" />
+		</property>
+		<property name="paswwordResetKey" type="string">
+			<column name="paswword_reset_key" length="25" />
+		</property>
+		<property name="passwordReset" type="java.lang.Byte">
+			<column name="password_reset" />
+		</property>
+		<property name="passwordModifiedDate" type="timestamp">
+			<column name="password_modified_date" length="19" />
+		</property>
+		<property name="userId" type="java.lang.Integer">
+			<column name="user_id" />
+		</property>
+		<property name="existingRole" type="string">
+			<column name="existing_role" length="10" />
+		</property>
+		<property name="code" type="string">
+			<column name="code" length="45" />
+		</property>
+		<set name="ordersRws" table="orders_rw" inverse="true" lazy="true"
+			fetch="select">
+			<key>
+				<column name="auth_user_id" />
+			</key>
+			<one-to-many class="com.mybkr.order.ws.entities.OrdersRw" />
+		</set>
+		<set name="authUserRoleses" table="auth_user_roles" inverse="true" cascade="all" >
+			<key>
+				<column name="auth_user_id" />
+			</key>
+			<one-to-many class="com.mybkr.user.ws.entities.AuthUserRoles" />
+		</set>
+	</class>
+</hibernate-mapping>

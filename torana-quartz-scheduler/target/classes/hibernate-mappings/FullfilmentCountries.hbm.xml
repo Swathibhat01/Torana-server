@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 19, 2014 4:47:48 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.mybkr.inventory.ws.entities.FullfilmentCountries" table="fullfilment_countries" catalog="mybkr">
+        <id name="locId" type="java.lang.Integer">
+            <column name="locID" />
+            <generator class="identity" />
+        </id>
+        <property name="centId" type="java.lang.Integer">
+            <column name="centID" />
+        </property>
+        <property name="country" type="string">
+            <column name="country" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

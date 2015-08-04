@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 19, 2014 4:47:48 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.mybkr.inventory.ws.entities.FullfilmentCenters" table="fullfilment_centers" catalog="mybkr">
+        <id name="centId" type="java.lang.Integer">
+            <column name="centID" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="100" />
+        </property>
+        <property name="rules" type="java.lang.Boolean">
+            <column name="rules" />
+        </property>
+        <property name="countryCode" type="string">
+            <column name="country_code" length="100" />
+        </property>
+        <property name="ssmaTimeStampNew" type="timestamp">
+            <column name="SSMA_TimeStamp_new" length="19" />
+        </property>
+        
+        <set name="inventories" table="inventory" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cent_id" />
+            </key>
+            <one-to-many class="com.mybkr.inventory.ws.entities.Inventory" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 8 Jul, 2014 4:18:51 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.mybkr.user.ws.entities.WholesaleBillAddress" table="wholesale_bill_address" catalog="mybkr">
+        <id name="billId" type="int">
+            <column name="billID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="wholesaleStoreUsers" class="com.mybkr.user.ws.entities.WholesaleStoreUsers" fetch="select">
+            <column name="userid" />
+        </many-to-one>
+        <property name="xfirstName" type="string">
+            <column name="xfirst_name" length="100" />
+        </property>
+        <property name="xlastName" type="string">
+            <column name="xlast_name" length="100" />
+        </property>
+        <property name="xaddress" type="string">
+            <column name="xaddress" length="510" />
+        </property>
+        <property name="xcity" type="string">
+            <column name="xcity" length="100" />
+        </property>
+        <property name="xstate" type="string">
+            <column name="xstate" length="100" />
+        </property>
+        <property name="xzip" type="string">
+            <column name="xzip" length="100" />
+        </property>
+        <property name="xcountry" type="string">
+            <column name="xcountry" length="100" />
+        </property>
+        <property name="xphone" type="string">
+            <column name="xphone" length="100" />
+        </property>
+        <property name="xfax" type="string">
+            <column name="xfax" length="100" />
+        </property>
+        <property name="xcompany" type="string">
+            <column name="xcompany" length="100" />
+        </property>
+        <property name="xemail" type="string">
+            <column name="xemail" length="100" />
+        </property>
+        <property name="defAddress" type="java.lang.Boolean">
+            <column name="def_address" />
+        </property>
+        <property name="whenTime" type="timestamp">
+            <column name="when_time" length="19" />
+        </property>
+        <property name="ssmaTimeStampNew" type="timestamp">
+            <column name="SSMA_TimeStamp_new" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

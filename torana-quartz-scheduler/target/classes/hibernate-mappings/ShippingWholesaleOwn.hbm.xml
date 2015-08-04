@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 Jul, 2014 12:44:48 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="com.mybkr.user.ws.entities.ShippingWholesaleOwn" table="shipping_wholesale_own" catalog="mybkr">
+        <id name="shipId" type="int">
+            <column name="shipID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="shipCarrier" class="com.mybkr.user.ws.entities.ShipCarrier" fetch="select">
+            <column name="carID" />
+        </many-to-one>
+        <property name="shiptype" type="string">
+            <column name="shiptype" length="100" />
+        </property>
+        <property name="shipCode" type="string">
+            <column name="ship_code" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>
