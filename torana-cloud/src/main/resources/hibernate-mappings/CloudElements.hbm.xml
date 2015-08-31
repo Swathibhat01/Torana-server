@@ -23,6 +23,15 @@
 		<property name="ipAddress" type="string">
 			<column name="ip_address" length="100" />
 		</property>
+		<property name="snmpPort" type="string">
+			<column name="snmp_port" length="100"/>
+		</property>
+		<property name="snmpCommunity" type="string">
+			<column name="snmp_community" length="100"/>
+		</property>
+		<property name="snmpVersion" type="java.lang.Integer">
+			<column name="snmp_version" length="100"/>
+		</property>
 		<property name="active" type="java.lang.Byte">
 			<column name="active" />
 		</property>

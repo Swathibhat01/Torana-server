@@ -14,6 +14,9 @@ public class CloudElements {
 	private String type;
 	private String name;
 	private String ipAddress;
+	private String snmpPort;
+	private String snmpCommunity;
+	private Integer snmpVersion;
 	private Byte active;
 	private Date createdDttm;
 	private Date modifiedDttm;
@@ -39,7 +42,7 @@ public class CloudElements {
 	 * @param events
 	 */
 	public CloudElements(Integer cloudId, String userName, String password,
-			String type, String name, String ipAddress,
+			String type, String name, String ipAddress, String snmpPort , String snmpCommunity , Integer snmpVersion,
 			Byte active, Date createdDttm, Date modifiedDttm,Integer timeInterval,Integer discover,Integer events) {
 		super();
 		this.cloudId = cloudId;
@@ -48,6 +51,9 @@ public class CloudElements {
 		this.type = type;
 		this.name = name;
 		this.ipAddress = ipAddress;
+		this.snmpPort = snmpPort;
+		this.snmpCommunity = snmpCommunity;
+		this.snmpVersion = snmpVersion;
 		this.active = active;
 		this.createdDttm = createdDttm;
 		this.modifiedDttm = modifiedDttm;
@@ -88,6 +94,31 @@ public class CloudElements {
 	public String getIpAddress() {
 		return ipAddress;
 	}
+
+	public String getSnmpPort() {
+		return snmpPort;
+	}
+	public void setSnmpPort(String snmpPort) {
+		this.snmpPort = snmpPort;
+	}
+
+	public Integer getSnmpVersion() {
+		return snmpVersion;
+	}
+
+	public void setSnmpVersion(Integer snmpVersion) {
+		this.snmpVersion = snmpVersion;
+	}
+
+	public String getSnmpCommunity() {
+		return snmpCommunity;
+	}
+
+	public void setSnmpCommunity(String snmpCommunity) {
+		this.snmpCommunity = snmpCommunity;
+	}
+
+
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}

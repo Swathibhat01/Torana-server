@@ -21,6 +21,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.torana.cloud.snmp.DeviceInfoCollector;
+
+import com.torana.cloud.snmp.service.SystemService;
+import com.torana.quartz.jobs.SnmpCallsJobs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +40,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-/**
+		/**
  * 
  * @author Torana
  *This is the Torana Cloud Elements Webservice.
@@ -49,9 +53,11 @@ import com.wordnik.swagger.annotations.ApiResponses;
 public class ToranaCloudElementsResource extends BaseHibernateResource{
 	private static final Logger LOGGER = LoggerFactory.getLogger(ToranaCloudElementsResource.class);
 	Util util = new Util();
+			SystemService systemService = new SystemService();
+
 	/**
 	 * Returns List of Cloud Elements from the Database.
-	 * 
+	 *
 	 *
 	 * @return cloud elements list
 	 **/
@@ -60,7 +66,7 @@ public class ToranaCloudElementsResource extends BaseHibernateResource{
 	@ApiOperation(value = "Getting Objets from DB", notes = "This service is used to Getting Objets from DB")
 	@ApiResponses(value = {
 			@ApiResponse(code = 400, message = "Invalid Request"),
-			@ApiResponse(code = 404, message = "Data Not Found") 
+			@ApiResponse(code = 404, message = "Data Not Found")
 	})
 	public Response getAllCloudElements() throws WebApplicationException, DataException, ApplicationException,Exception{
 		LOGGER.info("ToranaGenericResource: Method ToranaGenericResource.getAllObjectByClassName called :: ");//will look into logs later
@@ -81,13 +87,13 @@ public class ToranaCloudElementsResource extends BaseHibernateResource{
 				LOGGER.error("Exception: Error while retrieving the clouds : ",e);
 				throw e;
 			}
-			
-		
+
+
 
 	}
 	/**
 	 * Saves Cloud Element in Database. Accepts the cloud element object
-	 * 
+	 *
 	 *@param Cloud Element Object to be Saved
 	 *@return Cloud Element Object Saved
 	 **/
@@ -96,30 +102,37 @@ public class ToranaCloudElementsResource extends BaseHibernateResource{
 	@ApiOperation(value = "Insert CloudElement into DB", notes = "This service is to Create a CloudElement in DB")// will see wt reponse we need to set
 	@ApiResponses(value = {
 			@ApiResponse(code = 400, message = "Invalid Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") 
+			@ApiResponse(code = 500, message = "Internal Server Error")
 	})
 	public Response saveCloudElement(CloudElements cloud) throws WebApplicationException, DataException, ApplicationException,Exception{
 		LOGGER.info("ToranaCloudElementResource: Method ToranaCloudElementResource.saveCloudElement");//will look into logs later
 
-		try	{
-			ToranaCloudElementsService  cloudElementsService = (ToranaCloudElementsService) getServiceManager().getServicesMap().get(CLOUD_ELEMENTS_SERVICE);
+		try {
+			ToranaCloudElementsService cloudElementsService = (ToranaCloudElementsService) getServiceManager().getServicesMap().get(CLOUD_ELEMENTS_SERVICE);
 			CloudElements savedCloudElement = cloudElementsService.saveCloudElementService(cloud);
-			
-			LOGGER.info("------------------------"+cloud.getType());//will look into logs later
-			if(cloud.getType().equals("demo-server")){
-			InputStream inputStream = this.getClass().getClassLoader()
-    				.getResourceAsStream("testing.txt");
 
-    		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-    		StringBuilder builder = new StringBuilder();
-    		String line;
-    		while ((line = bufferedReader.readLine()) != null)
-    		{
-    				builder.append(line+" ");
-    		}
-    		util.executeQuery(builder.toString());
-			}else if(cloud.getType().equals("Openstack") && cloud.getDiscover() == 1){
+			LOGGER.info("------------------------" + cloud.getType());//will look into logs later
+			if (cloud.getType().equals("demo-server")) {
+				InputStream inputStream = this.getClass().getClassLoader()
+						.getResourceAsStream("testing.txt");
+
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+				StringBuilder builder = new StringBuilder();
+				String line;
+				while ((line = bufferedReader.readLine()) != null) {
+					builder.append(line + " ");
+				}
+				util.executeQuery(builder.toString());
+			} else if (cloud.getType().equals("Openstack") && cloud.getDiscover() == 1) {
 				ToranaCronJobs.dumpOpenStackToNeo4jCron();
+			} else {
+				if (cloud.getType().equals("SNMP-Switch")) {
+					DeviceInfoCollector deviceInfoCollector = new DeviceInfoCollector(cloud.getIpAddress(), cloud.getSnmpPort(), cloud.getSnmpCommunity(), cloud.getSnmpVersion());
+					systemService.createOrUpdate(deviceInfoCollector.setValuesToSystem(cloud.getName()));
+					SnmpCallsJobs snmpCallsJobs = new SnmpCallsJobs(cloud.getIpAddress(), cloud.getSnmpPort(), cloud.getSnmpCommunity(), cloud.getSnmpVersion() , cloud.getName());
+					ToranaCronJobs.dumpSNMPtoNeo4jCron();
+				}
+			}
 //				Builders b = new Builders();
 //				String s="",s1="";
 //				StringBuilder builder = new StringBuilder();
@@ -129,31 +142,31 @@ public class ToranaCloudElementsResource extends BaseHibernateResource{
 //				List<String> result = new ArrayList();
 //				System.out.println("\nSizetest::::"+result.size());
 //				Map m = new HashMap<String, Map>();
-//				
+//
 //				OSClient os = OSFactory.builder().endpoint("http://8.21.28.222:5000/v2.0")
 //						.credentials("facebook100000823628974","pyGb1620umskhzrU")
 //						.tenantName("facebook100000823628974")
 //						.authenticate();
-//				
+//
 //				// Find all running Servers
 //				List<? extends Server> servers = os.compute().servers().list();
 //				System.out.println("Servers:\n"+servers);
-//				
+//
 //				if(servers.size() > 0)
 //				{
 //				s = servers.get(0).toString();
 //				s1 = s.substring(s.indexOf('{')+1, s.length()-1);
 //				System.out.println("\nNew String:::"+builder);
 //				}
-//				
+//
 //				//start
-//				
-//				
+//
+//
 //				   builder = new StringBuilder(s1);
 //				   //Start For Loop
 //				   for (int currentIndex = 0; currentIndex < builder.length(); currentIndex++) {
 //				       char currentChar = builder.charAt(currentIndex);
-//				       if (currentChar == '{') 
+//				       if (currentChar == '{')
 //				       {
 //				    	   a.add(currentChar);
 //				    	   //System.out.println("currentChar:::"+a);
@@ -167,22 +180,22 @@ public class ToranaCloudElementsResource extends BaseHibernateResource{
 //				    	   inQuotes = false; // toggle state
 //				       }
 //				      /*if(inQuotes){
-//				    	System.out.println("inQuotes is ttttttttrue:::"+inQuotes);  
+//				    	System.out.println("inQuotes is ttttttttrue:::"+inQuotes);
 //				      }else
 //				      {
 //				    	  System.out.println("inQuotes is fffffffffffalse:::"+inQuotes);
 //				      }*/
 //				       if (currentChar == ',' && inQuotes) {
-//				    	   builder.setCharAt(currentIndex, ';'); 
+//				    	   builder.setCharAt(currentIndex, ';');
 //					       }
 //				   }
 //				   //End For Loop
 //				   result = Arrays.asList(builder.toString().split(","));
-//				   
+//
 //				   /*for (Object temp : result) {
 //					   System.out.println("\ntemp::::"+temp);
 //				   }*/
-//				   
+//
 //				//end
 //				if(result.size() > 1){
 //				for (Object temp : result) {
@@ -229,9 +242,10 @@ public class ToranaCloudElementsResource extends BaseHibernateResource{
 //					strBuilder.append("}) return n");
 //					util.executeQuery(strBuilder.toString());
 //				}
+
+				return createdSuccessResponse(savedCloudElement);
 			}
-			return createdSuccessResponse(savedCloudElement);
-		}
+
 		catch(DataException de){
 			LOGGER.error("Data Exception: Error while saving the Cloud Element ",de);
 			throw de;
