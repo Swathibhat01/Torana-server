@@ -1,7 +1,0 @@
-com/torana/generic/resources/ToranaGenericResource.class
-com/torana/generic/util/GenericProperties.class
-com/torana/generic/dao/impl/ToranaGenericDAOImpl.class
-com/torana/generic/biz/impl/ToranaGenericServiceImpl.class
-com/torana/generic/biz/ToranaGenericService.class
-com/torana/generic/dao/ToranaGenericDAO.class
-com/torana/generic/util/GenericConstants.class

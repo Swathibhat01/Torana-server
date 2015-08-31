@@ -1,7 +1,0 @@
-/home/user/Work/Code/Torana-server/torana-quartz-scheduler/src/main/java/service/com/torana/quartz/jobs/OpenStackJobsMain.java
-/home/user/Work/Code/Torana-server/torana-quartz-scheduler/src/main/java/api/com/torana/quartz/api/ws/PurchaseOrderAcknowledgment.java
-/home/user/Work/Code/Torana-server/torana-quartz-scheduler/src/main/java/service/com/torana/quartz/jobs/QuartzJobTracker.java
-/home/user/Work/Code/Torana-server/torana-quartz-scheduler/src/main/java/service/com/torana/quartz/jobs/ToranaControllerMain.java
-/home/user/Work/Code/Torana-server/torana-quartz-scheduler/src/main/java/service/com/torana/quartz/jobs/HibernateUtils.java
-/home/user/Work/Code/Torana-server/torana-quartz-scheduler/src/main/java/service/com/torana/quartz/jobs/OpenStackCallsJobs.java
-/home/user/Work/Code/Torana-server/torana-quartz-scheduler/src/main/java/service/com/torana/quartz/jobs/ToranaCronJobs.java

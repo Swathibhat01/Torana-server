@@ -1,6 +1,0 @@
-com/torana/ws/entities/CloudElements.class
-com/torana/utils/Util.class
-com/torana/neo4j/persistence/Neo4jPersistence.class
-com/torana/neo4j/persistence/impl/Neo4jPersistenceImpl.class
-com/torana/openstack/persistence/OpenStackPersistence.class
-com/torana/openstack/persistence/impl/OpenStackPersistenceImpl.class
