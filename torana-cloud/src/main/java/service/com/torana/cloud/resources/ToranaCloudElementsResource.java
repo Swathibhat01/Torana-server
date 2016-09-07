@@ -1,33 +1,5 @@
 package com.torana.cloud.resources;
 
-import static com.torana.cloud.util.CloudConstants.CLOUD_ELEMENTS_SERVICE;
-import static com.torana.cloud.util.CloudConstants.FAILED_RESPONSE;
-import static com.torana.cloud.util.CloudConstants.SUCCESS_RESPONSE;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import com.torana.cloud.snmp.DeviceInfoCollector;
-
-import com.torana.cloud.snmp.service.SystemService;
-import com.torana.quartz.jobs.SnmpCallsJobs;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.torana.cloud.biz.ToranaCloudElementsService;
 import com.torana.cloudelements.CloudElements;
 import com.torana.hibernate.exception.ApplicationException;
@@ -35,11 +7,19 @@ import com.torana.hibernate.exception.DataException;
 import com.torana.quartz.jobs.ToranaCronJobs;
 import com.torana.resourses.BaseHibernateResource;
 import com.torana.utils.Util;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
+import com.wordnik.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+
+import static com.torana.cloud.util.CloudConstants.*;
 		/**
  * 
  * @author Torana
@@ -49,11 +29,9 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Path("/cloudElements")
 @Api(value = "/cloudElements", description = "Cloud Elements Resource")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class ToranaCloudElementsResource extends BaseHibernateResource{
 	private static final Logger LOGGER = LoggerFactory.getLogger(ToranaCloudElementsResource.class);
 	Util util = new Util();
-			SystemService systemService = new SystemService();
 
 	/**
 	 * Returns List of Cloud Elements from the Database.
@@ -125,13 +103,6 @@ public class ToranaCloudElementsResource extends BaseHibernateResource{
 				util.executeQuery(builder.toString());
 			} else if (cloud.getType().equals("Openstack") && cloud.getDiscover() == 1) {
 				ToranaCronJobs.dumpOpenStackToNeo4jCron();
-			} else {
-				if (cloud.getType().equals("SNMP-Switch")) {
-					DeviceInfoCollector deviceInfoCollector = new DeviceInfoCollector(cloud.getIpAddress(), cloud.getSnmpPort(), cloud.getSnmpCommunity(), cloud.getSnmpVersion());
-					systemService.createOrUpdate(deviceInfoCollector.setValuesToSystem(cloud.getName()));
-					SnmpCallsJobs snmpCallsJobs = new SnmpCallsJobs(cloud.getIpAddress(), cloud.getSnmpPort(), cloud.getSnmpCommunity(), cloud.getSnmpVersion() , cloud.getName());
-					ToranaCronJobs.dumpSNMPtoNeo4jCron();
-				}
 			}
 //				Builders b = new Builders();
 //				String s="",s1="";

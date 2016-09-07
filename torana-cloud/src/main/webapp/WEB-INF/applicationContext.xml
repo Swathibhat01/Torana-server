@@ -3,13 +3,15 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
        	http://www.springframework.org/schema/beans 
        	http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx
-		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		 http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
 <!-- 	<bean id="applicationContextProvider" class="com.torana.webservices.ApplicationContextProvider"></bean> -->
 	<bean id="applicationContextProvider" class="com.torana.util.ApplicationContextProvider"></bean>
@@ -114,6 +116,16 @@
 			</map>
 		</property>
 	</bean>
+
+	<!-- Scheduler SNMP job -->
+
+	<bean id="snmpSchedulerJob" class="snmpSchedulerJob">
+			</bean>
+	<task:scheduled-tasks scheduler="myScheduler">
+		<task:scheduled ref="snmpSchedulerJob" method="snmpSwitchInfoCollectingAndPersistingToNeo4j" fixed-delay="60000" initial-delay="60000" />
+	</task:scheduled-tasks>
+
+	<task:scheduler id="myScheduler"/>
 	
 	
 	

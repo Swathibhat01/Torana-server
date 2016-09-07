@@ -1,6 +1,9 @@
-package com.torana.cloud.snmp.oid.config;
+package snmp.oid.config;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+
 import java.util.Map;
 
 /**

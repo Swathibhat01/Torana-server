@@ -1,15 +1,13 @@
-package com.torana.cloud.snmp;
+package snmp;
 
-import com.torana.cloud.snmp.domain.*;
-import com.torana.cloud.snmp.domain.System;
-import com.torana.cloud.snmp.service.SystemService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import snmp.domain.Interface;
+import snmp.domain.System;
 
 import java.io.IOException;
 import java.util.Set;
 
-import static org.testng.Assert.*;
 
 /**
  * Created by root on 8/18/15.
@@ -17,10 +15,10 @@ import static org.testng.Assert.*;
 public class DeviceInfoCollectorTest {
 
 
-    DeviceInfoCollector deviceInfoCollector = new DeviceInfoCollector("192.168.1.64" , "161" , "public" , 2);
+    DeviceInfoCollector deviceInfoCollector = new DeviceInfoCollector("192.168.1.69" , "1161" , "public" , 2);
 
 
-    @Test
+    @Test(enabled = false)
     public void shouldSetTheSystemValues() throws IOException, IllegalAccessException {
         System system = deviceInfoCollector.setValuesToSystem("Quisk Switch");
         Assert.assertEquals(system.getSysDescr(), "test environment switch junos");

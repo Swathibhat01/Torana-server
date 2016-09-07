@@ -8,7 +8,7 @@
   	<module>torana-commons</module>
   	<module>torana-utils</module>
   	<module>torana-user-management</module>
-  	<module>torana-quartz-scheduler</module>
+	  <module>torana-quartz-scheduler</module>
   	<module>torana-cloud</module>
   </modules>
   <build>

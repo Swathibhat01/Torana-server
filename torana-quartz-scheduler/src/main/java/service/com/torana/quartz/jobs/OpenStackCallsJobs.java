@@ -15,6 +15,7 @@ public class OpenStackCallsJobs  extends QuartzJobBean{
 		prtMsg("Quartz Job****..Start.****"+group);
 
 		try{
+
 			QuartzJobTracker jobTracker = new QuartzJobTracker();
 			jobTracker.processOpenStackCalls(group);
 		}catch(Exception ex){
